@@ -3,42 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lovable.AI – Styled Prototype</title>
+  <title>Lovable.AI – Advanced Site Builder</title>
   <style>
-    /* ──────────────────────────────────────────────────────────────────────────
-       Reset & Base Styles
-    ────────────────────────────────────────────────────────────────────────── */
+    /* ─────────────────────────────────────────────────────────────────────────
+       RESET & BASE STYLES
+    ───────────────────────────────────────────────────────────────────────── */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     html, body {
       height: 100%;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f0f2f5;
       color: #333;
     }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    /* ──────────────────────────────────────────────────────────────────────────
-       Layout: Header + Main
-    ────────────────────────────────────────────────────────────────────────── */
-    body {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
+    /* ─────────────────────────────────────────────────────────────────────────
+       HEADER
+    ───────────────────────────────────────────────────────────────────────── */
     header {
       background-color: #4f46e5;
       color: #fff;
@@ -48,42 +34,38 @@
       justify-content: space-between;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
-    header img.logo {
-      height: 32px;
-      width: 32px;
-      border-radius: 4px;
-      margin-right: 0.5rem;
-    }
-
     header .brand {
       display: flex;
       align-items: center;
       font-size: 1.25rem;
       font-weight: 600;
     }
-
+    header img.logo {
+      height: 32px;
+      width: 32px;
+      margin-right: 0.5rem;
+      border-radius: 4px;
+    }
     header nav a {
       margin-left: 1.25rem;
       font-size: 0.95rem;
       transition: color 0.2s ease;
     }
-
     header nav a:hover {
       color: #d1d5db;
     }
 
+    /* ─────────────────────────────────────────────────────────────────────────
+       LAYOUT: SIDEBAR + PREVIEW
+    ───────────────────────────────────────────────────────────────────────── */
     main {
-      flex: 1;
       display: flex;
+      flex: 1;
       overflow: hidden;
+      height: calc(100% - 64px); /* header height */
     }
-
-    /* ──────────────────────────────────────────────────────────────────────────
-       Sidebar (“Controls”)
-    ────────────────────────────────────────────────────────────────────────── */
     .sidebar {
-      width: 300px;
+      width: 320px;
       background-color: #fff;
       border-right: 1px solid #e5e7eb;
       padding: 1.5rem;
@@ -91,20 +73,34 @@
       flex-direction: column;
       overflow-y: auto;
     }
+    #preview {
+      flex: 1;
+      background-color: #fafafa;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (max-width: 900px) {
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #e5e7eb; }
+      main { flex-direction: column; }
+      #preview { height: 300px; }
+    }
 
+    /* ─────────────────────────────────────────────────────────────────────────
+       SIDEBAR CONTROLS
+    ───────────────────────────────────────────────────────────────────────── */
     .sidebar h2 {
       font-size: 1.1rem;
       margin-bottom: 0.75rem;
       color: #1f2937;
     }
-
     .sidebar label {
       font-size: 0.9rem;
       margin-top: 1rem;
       margin-bottom: 0.25rem;
       color: #4b5563;
     }
-
     .sidebar select,
     .sidebar input[type="text"],
     .sidebar textarea {
@@ -115,7 +111,6 @@
       border-radius: 4px;
       transition: border-color 0.2s ease;
     }
-
     .sidebar select:focus,
     .sidebar input[type="text"]:focus,
     .sidebar textarea:focus {
@@ -123,43 +118,50 @@
       border-color: #4f46e5;
       box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
     }
-
     .sidebar textarea {
       resize: vertical;
       min-height: 80px;
     }
-
+    .sidebar .section-checkboxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .sidebar .section-checkboxes label {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .sidebar .section-checkboxes input {
+      margin-right: 0.25rem;
+    }
     .sidebar button#generate {
       margin-top: 1.5rem;
       background-color: #4f46e5;
       color: #fff;
       border: none;
       border-radius: 4px;
-      padding: 0.65rem 1.25rem;
+      padding: 0.75rem 1.5rem;
       font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.2s ease;
     }
-
     .sidebar button#generate:hover:not(:disabled) {
       background-color: #3730a3;
     }
-
     .sidebar button#generate:disabled {
       background-color: #a5b4fc;
       cursor: not-allowed;
     }
 
-    /* ──────────────────────────────────────────────────────────────────────────
-       Sample Photos Thumbnails
-    ────────────────────────────────────────────────────────────────────────── */
+    /* Thumbnails (unchanged from previous example) */
     .thumbnails {
       display: flex;
       justify-content: space-between;
       margin-top: 0.5rem;
       gap: 0.5rem;
     }
-
     .thumbnails img {
       width: 32%;
       border-radius: 4px;
@@ -169,27 +171,17 @@
       object-fit: cover;
       height: 60px;
     }
-
     .thumbnails img:hover {
       border-color: #4f46e5;
       transform: scale(1.02);
     }
 
-    /* ──────────────────────────────────────────────────────────────────────────
-       Preview Section
-    ────────────────────────────────────────────────────────────────────────── */
-    #preview {
-      flex: 1;
-      background-color: #fafafa;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Loading spinner */
+    /* ─────────────────────────────────────────────────────────────────────────
+       PREVIEW: SPINNER & IFRAME
+    ───────────────────────────────────────────────────────────────────────── */
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
     .spinner {
       position: absolute;
       top: 50%;
@@ -203,43 +195,23 @@
       animation: spin 1s linear infinite;
       z-index: 10;
     }
-
-    /* Styling for error / info text in preview */
     #preview p {
       padding: 1rem;
       color: #555;
     }
-
-    /* The iframe that will show AI-generated HTML */
     #preview iframe {
       border: none;
       width: 100%;
       height: 100%;
       display: block;
-    }
-
-    /* ──────────────────────────────────────────────────────────────────────────
-       Responsive Adjustments
-    ────────────────────────────────────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #e5e7eb;
-      }
-      main {
-        flex-direction: column;
-      }
-      #preview {
-        height: 300px;
-      }
+      flex: 1;
     }
   </style>
 </head>
 <body>
-  <!-- ──────────────────────────────────────────────────────────────────────────
-     Header with Logo & Navigation
-  ────────────────────────────────────────────────────────────────────────── -->
+  <!-- ─────────────────────────────────────────────────────────────────────────
+     HEADER
+  ───────────────────────────────────────────────────────────────────────── -->
   <header>
     <div class="brand">
       <img
@@ -256,21 +228,51 @@
     </nav>
   </header>
 
-  <!-- ──────────────────────────────────────────────────────────────────────────
-     Main Content Area: Sidebar + Preview
-  ────────────────────────────────────────────────────────────────────────── -->
+  <!-- ─────────────────────────────────────────────────────────────────────────
+     MAIN: SIDEBAR + PREVIEW
+  ───────────────────────────────────────────────────────────────────────── -->
   <main>
-    <!-- ───────────────────────────────── Sidebar (Controls) ───────────────────────────── -->
+    <!-- ─────────────────── SIDEBAR (Controls) ─────────────────── -->
     <div class="sidebar">
+      <h2>Build Your Page</h2>
+
       <!-- Theme Selector -->
-      <h2>Settings</h2>
-      <label for="theme">Select Theme</label>
+      <label for="theme">Color Palette</label>
       <select id="theme">
         <option value="light">Light</option>
         <option value="dark">Dark</option>
+        <option value="pastel">Pastel</option>
+        <option value="bold">Bold</option>
       </select>
 
-      <!-- Featured Image URL Input (auto-populated by clicking a thumbnail) -->
+      <!-- Font / Typography Selector -->
+      <label for="font">Typography</label>
+      <select id="font">
+        <option value="sans-serif">Sans‐Serif</option>
+        <option value="serif">Serif</option>
+        <option value="monospace">Monospace</option>
+      </select>
+
+      <!-- Layout Type Selector -->
+      <label for="layout">Layout Style</label>
+      <select id="layout">
+        <option value="single-column">Single Column</option>
+        <option value="two-column">Two Column</option>
+        <option value="grid">Grid</option>
+      </select>
+
+      <!-- Section Checklist -->
+      <label>Sections to Include</label>
+      <div class="section-checkboxes">
+        <label><input type="checkbox" value="Hero" checked /> Hero</label>
+        <label><input type="checkbox" value="About" checked /> About</label>
+        <label><input type="checkbox" value="Features" checked /> Features</label>
+        <label><input type="checkbox" value="Contact" checked /> Contact</label>
+        <label><input type="checkbox" value="Testimonials" /> Testimonials</label>
+        <label><input type="checkbox" value="FAQ" /> FAQ</label>
+      </div>
+
+      <!-- Featured Image URL -->
       <label for="featured-image">Featured Image URL</label>
       <input
         type="text"
@@ -304,32 +306,37 @@
       <label for="prompt">Your Prompt</label>
       <textarea
         id="prompt"
-        placeholder="Describe what you want (e.g., dark blog homepage with a hero image)."
+        placeholder="Describe the page you want (e.g., ‘Tech blog homepage with hero image…’)."
       ></textarea>
 
       <!-- Generate Button -->
       <button id="generate">Generate Final Page</button>
     </div>
 
-    <!-- ───────────────────────────────── Preview Area ───────────────────────────────── -->
+    <!-- ─────────────────────────────────────────────────────────────────────────
+       PREVIEW
+    ───────────────────────────────────────────────────────────────────────── -->
     <div id="preview">
       <!-- Spinner or iframe will appear here -->
     </div>
   </main>
 
-  <!-- ──────────────────────────────────────────────────────────────────────────
-     JavaScript: Handling Clicks, Spinner, and Fetch
-  ────────────────────────────────────────────────────────────────────────── -->
+  <!-- ─────────────────────────────────────────────────────────────────────────
+     JAVASCRIPT: COLLECT OPTIONS, BUILD PROMPT, CALL BACKEND, RENDER
+  ───────────────────────────────────────────────────────────────────────── -->
   <script>
-    // Get references to elements
+    // Reference all controls
     const themeSelect = document.getElementById('theme');
+    const fontSelect = document.getElementById('font');
+    const layoutSelect = document.getElementById('layout');
+    const sectionCheckboxes = document.querySelectorAll('.section-checkboxes input');
     const featuredImageInput = document.getElementById('featured-image');
     const promptEl = document.getElementById('prompt');
     const generateBtn = document.getElementById('generate');
     const previewEl = document.getElementById('preview');
     const thumbnails = document.querySelectorAll('.thumbnails img');
 
-    // When a thumbnail is clicked, populate the Featured Image URL
+    // When a thumbnail is clicked, populate Featured Image URL
     thumbnails.forEach(img => {
       img.addEventListener('click', () => {
         const url = img.getAttribute('data-url');
@@ -337,33 +344,52 @@
       });
     });
 
-    // Handle "Generate" button click
     generateBtn.onclick = async () => {
       const promptText = promptEl.value.trim();
-      const themeValue = themeSelect.value;
-      const imageUrl = featuredImageInput.value.trim();
-
       if (!promptText) {
-        alert('Please enter a prompt.');
+        alert('Please enter a prompt for your page.');
         return;
       }
 
-      // Build the final prompt for the AI, including theme and image if provided
-      let fullPrompt = promptText;
-      fullPrompt += themeValue === 'dark'
-        ? ' (Use a dark color scheme.)'
-        : ' (Use a light color scheme.)';
+      // Gather all selected options
+      const themeValue = themeSelect.value;                // e.g., "dark"
+      const fontValue = fontSelect.value;                  // e.g., "serif"
+      const layoutValue = layoutSelect.value;              // e.g., "two-column"
 
+      // Build a list of checked sections
+      const checkedSections = Array.from(sectionCheckboxes)
+        .filter(chk => chk.checked)
+        .map(chk => chk.value);                            // e.g., ["Hero", "About", "Features"]
+
+      const imageUrl = featuredImageInput.value.trim();    // e.g., "https://images..."
+
+      // Now craft a structured prompt for the AI
+      // We’ll explicitly request: HTML + CSS + minimal JS (if needed), all commented.
+      let fullPrompt = `Generate a complete, responsive HTML/CSS/JavaScript website project. 
+Use a ${themeValue} color palette, with ${fontValue} typography. 
+Layout style: ${layoutValue} layout. 
+Include the following sections in this order: ${checkedSections.join(', ')}. 
+`;
+
+      // If user provided a featured image, tell the AI to use it as a hero image
       if (imageUrl) {
-        fullPrompt += ` Include this image as a hero/featured image: ${imageUrl}`;
+        fullPrompt += `Use this image as a hero/featured image at the top of the page: ${imageUrl}. `;
       }
 
-      // Disable button and show spinner
+      // Finally append the user’s free‐form description
+      fullPrompt += `Additional instructions: ${promptText}. 
+Output should have separate files listed in comments, for example:
+<!-- File: index.html --> ... 
+<!-- File: css/styles.css --> ... 
+<!-- File: js/main.js --> ... 
+Make sure to include comments explaining each major section in the code.`;
+
+      // Disable the button and show a spinner
       generateBtn.disabled = true;
       previewEl.innerHTML = '<div class="spinner"></div>';
 
       try {
-        // Send POST request to the Render backend
+        // Send the structured prompt to your Render backend
         const response = await fetch(
           'https://lovable-ai-backend.onrender.com/api/generate',
           {
@@ -380,10 +406,32 @@
         }
 
         const data = await response.json();
-        const generatedHTML = data.html || '<p>No HTML returned.</p>';
+        const generatedText = data.html || '<p>No HTML returned.</p>';
 
-        // Escape quotes and inject into an iframe
-        const escaped = generatedHTML.replace(/"/g, '&quot;');
+        // The AI will return one big text blob containing multiple “files” as comments.
+        // We need to extract just the <index.html> section for live preview.
+        // Here’s a simple approach: find the content between
+        // “<!-- File: index.html -->” and the next “<!-- File:”
+        const fileMarker = '<!-- File: index.html';
+        const startIndex = generatedText.indexOf(fileMarker);
+        let htmlContent = generatedText;
+
+        if (startIndex !== -1) {
+          // find where index.html block ends (where next file starts)
+          const nextFileIndex = generatedText.indexOf('<!-- File:', startIndex + 1);
+          if (nextFileIndex !== -1) {
+            htmlContent = generatedText.slice(
+              startIndex + fileMarker.length,
+              nextFileIndex
+            );
+          } else {
+            // if no other file marker found, take everything after
+            htmlContent = generatedText.slice(startIndex + fileMarker.length);
+          }
+        }
+
+        // Now inject index.html portion into an iframe (escaping quotes)
+        const escaped = htmlContent.trim().replace(/"/g, '&quot;');
         previewEl.innerHTML = `<iframe srcdoc="${escaped}"></iframe>`;
       } catch (err) {
         previewEl.innerHTML =
