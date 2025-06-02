@@ -3,10 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lovable.AI Under Construction</title>
+  <title>Lovable.AI Prototype</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+    #preview {
+      margin-top: 2rem;
+      border: 1px solid #ccc;
+      height: 400px;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 <body>
-  <h1>🎉 Lovable.AI is Live!</h1>
-  <p>This is a placeholder page. Vercel is now serving content from the Frontend folder.</p>
+  <h1>Lovable.AI Prototype</h1>
+  <p>Enter a prompt to generate a basic website layout:</p>
+  <textarea id="prompt" placeholder="e.g. A portfolio site with a dark theme and contact form"></textarea>
+  <br />
+  <button id="generate">Generate</button>
+
+  <div id="preview">
+    <!-- Generated HTML will be injected here in an iframe -->
+  </div>
+
+  <script>
+    document.getElementById('generate').onclick = async () => {
+      const promptText = document.getElementById('prompt').value.trim();
+      if (!promptText) {
+        alert('Please enter a prompt.');
+        return;
+      }
+
+      // Show a “loading” message while waiting
+      document.getElementById('preview').innerHTML =
+        '<p style="padding:1rem;">Generating…</p>';
+
+      try {
+        // Call your (future) backend API endpoint at /api/generate
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: promptText })
+        });
+
+        if (!response.ok) {
+          throw new Error('API returned ' + response.status);
+        }
+
+        const data = await response.json();
+        const generatedHTML = data.html || '<p>No HTML returned.</p>';
+
+        // Inject the returned HTML into an iframe
+        document.getElementById('preview').innerHTML =
+          `<iframe srcdoc="${generatedHTML.replace(/"/g, '&quot;')}"></iframe>`;
+      } catch (err) {
+        document.getElementById('preview').innerHTML =
+          `<p style="color:red; padding:1rem;">Error: ${err.message}</p>`;
+      }
+    };
+  </script>
 </body>
 </html>
