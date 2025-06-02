@@ -46,7 +46,7 @@
   <button id="generate">Generate</button>
 
   <div id="preview">
-    <!-- Generated HTML will be injected here in an iframe -->
+    <!-- The generated HTML will be injected here inside an iframe -->
   </div>
 
   <script>
@@ -57,29 +57,38 @@
         return;
       }
 
-      // Show a “loading” message while waiting
+      // Show a “Generating…” message while waiting for the AI
       document.getElementById('preview').innerHTML =
         '<p style="padding:1rem;">Generating…</p>';
 
       try {
-        // Call your (future) backend API endpoint at /api/generate
-        const response = await fetch('/api/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: promptText })
-        });
+        // Make a POST request to your Render backend
+        const response = await fetch(
+          'https://lovable-ai-backend.onrender.com/api/generate',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: promptText })
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('API returned ' + response.status);
+          // If the HTTP status is not 200-299, show an error
+          document.getElementById('preview').innerHTML =
+            `<p style="color:red; padding:1rem;">Error: ${response.status}</p>`;
+          return;
         }
 
+        // Parse the JSON returned by your backend
         const data = await response.json();
         const generatedHTML = data.html || '<p>No HTML returned.</p>';
 
         // Inject the returned HTML into an iframe
+        // We escape any double quotes so the srcdoc attribute remains valid
         document.getElementById('preview').innerHTML =
-          `<iframe srcdoc="${generatedHTML.replace(/"/g, '&quot;')}"></iframe>`;
+          `<iframe srcdoc="${generatedHTML.replace(/"/g, '&quot;')}" style="width:100%; height:100%;"></iframe>`;
       } catch (err) {
+        // Network errors or unexpected exceptions
         document.getElementById('preview').innerHTML =
           `<p style="color:red; padding:1rem;">Error: ${err.message}</p>`;
       }
