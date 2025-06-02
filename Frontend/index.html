@@ -113,7 +113,10 @@
     <div id="sidebar">
       <h2>Build Your Restaurant Site</h2>
       <label for="user-prompt">Your Prompt</label>
-      <textarea id="user-prompt" placeholder="Create a website for the restaurant full fledged"></textarea>
+      <textarea
+        id="user-prompt"
+        placeholder="Create a website for the restaurant full fledged"
+      ></textarea>
 
       <button id="generate-btn">Generate Final Page</button>
       <button id="download-zip" disabled>Download ZIP</button>
@@ -128,6 +131,11 @@
     </div>
   </div>
 
+  <!-- Tell script.js where the backend lives. 
+       Replace with your actual Render URL if needed. -->
+  <script>
+    const BACKEND_URL = "https://lovable-ai-backend.onrender.com";
+  </script>
   <!-- Link to our main script -->
   <script src="script.js"></script>
 </body>
